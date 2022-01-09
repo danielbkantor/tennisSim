@@ -5,6 +5,10 @@ from django.db import models
 class tennisPlayer(models.Model):
     name = models.TextField(unique= True)
     utr = models.FloatField()
+    drawNum = models.IntegerField()
+    
+    def __str__(self):
+        return str(self.drawNum)
     
 #python manage.py makemigrations
 #python manage.py sqlmigrate simPage 0001
