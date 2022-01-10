@@ -8,6 +8,14 @@
                 Name: {{ i.name }} UTR: {{ i.utr }}
             </div>
         {% endfor %%}
+        WINNERS:
+
+        
+        {% for i in winnerList %}
+            <div class = "row">
+                Name: {{ i.winnerPlayer }} 
+            </div>
+        {% endfor %%}
     </P>
 
     <body>
