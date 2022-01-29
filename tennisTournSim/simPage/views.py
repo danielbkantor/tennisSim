@@ -1,6 +1,8 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings 
+from django.views import View
 from .models import tennisPlayer, Matches
 import csv, requests, os
 
@@ -9,8 +11,14 @@ import csv, requests, os
 def index(request):
     drawNum = 0
     countNum = 0
-    drawSize = 4
+    drawSize = 16
     roundCounter = 1
+    
+    entries = Matches.objects.all()
+    entries.delete()
+    
+    player = tennisPlayer.objects.all()
+    player.delete()
     
     with open(os.path.join(settings.BASE_DIR, 'tournament.csv')) as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',')
@@ -20,6 +28,7 @@ def index(request):
             getName = requests.get('https://app.universaltennis.com/api/v2/search/players?query={}&top=1'.format(row))
             responseName = getName.json()
             id = (responseName['hits'][0]['source']['id'])
+            print(id)
             response = requests.get('https://app.universaltennis.com/api/v1/player/{}'.format(id))
             playerdata = response.json()
             playerInfo = tennisPlayer()
@@ -37,16 +46,24 @@ def index(request):
         while(drawSize != 1):
             roundCounter = computeResults(request, roundCounter)
             drawSize = drawSize / 2
-        
+      
+        matchData = Matches()    
+        match = Matches.objects.get(round = roundCounter)
+        print(match)
+        matchData.winnerPlayer = match.winnerPlayer
+        matchData.loserPlayer = "null"
+        matchData.round = roundCounter + 1
+        matchData.save()
         
     return render(request, 'home.html', {
         "winnerList": Matches.objects.all(),
-        "playerlist": tennisPlayer.objects.all()
+        #"playerlist": tennisPlayer.objects.all(),
+        "roundList": [1, 2, 3, 4, 5, 6, 7, 8]
     })
     
 def initalMatches(request):
     count = 0
-    while count < 4:
+    while count < 16:
         matchData = Matches()
         list = tennisPlayer.objects.filter(drawNum = count)
         playerOne = list[0]

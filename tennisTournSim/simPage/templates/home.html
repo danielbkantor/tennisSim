@@ -1,35 +1,126 @@
+<!DOCTYPE html>
 <html>
-    <!-- development version, includes helpful console warnings -->
+  <head>
+    <meta charset = "utf-8"/>
+    <title>Tennis Tournament Simulator</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <h2>API</h2>
-    <P>
-        {% for i in playerlist %}
-            <div class = "row">
-                Name: {{ i.name }} UTR: {{ i.utr }}
-            </div>
-        {% endfor %%}
-        WINNERS:
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    
+    {% load static %}
+      <script src="{% static 'jquery.bracket.min.js' %}"></script>
+      <link href= "{% static 'jquery.bracket.min.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'layout.css' %}">
+      
+</head>
 
-        
-        {% for i in winnerList %}
-            <div class = "row">
-                Name: {{ i.winnerPlayer }} 
-            </div>
-        {% endfor %%}
-    </P>
-
-    <body>
-    <div id="vue-app">
-      <h1>[[ myTitle ]]</h1>
-    </div>
-    <script type="text/javascript">
-      let app = new Vue({
-        el: "#vue-app",
-        delimiters: ['[[', ']]'],
-        data: {
-          myTitle: 'Hello Vue!',
-        },
-      });
-    </script>
-  </body>
+<body >
+  <div id="wrapper">
+    <main id="tournament" style="min-width: 1200;">
+        {% for i in roundList %} 
+          {% if i == 1 %}
+          <ul class ="round round-1">
+            <li class="spacer">&nbsp;</li>
+            {% for j in winnerList %}
+              {% if j.round == 1 %}
+                <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+                <li class="game game-spacer">&nbsp;</li>
+                <li class="game game-bottom "> {{j.loserPlayer}}</li>
+                <li class="spacer">&nbsp;</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          {%  elif i == 2 %}
+            <ul class ="round round-2">
+            <li class="spacer">&nbsp;</li>
+            {% for j in winnerList %}
+              {% if j.round == 2 %}
+                <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+                <li class="game game-spacer">&nbsp;</li>
+                <li class="game game-bottom "> {{j.loserPlayer}}</li>
+                <li class="spacer">&nbsp;</li>
+              {% endif %}
+            {% endfor %%}
+          </ul>
+          {%  elif i == 3 %}
+          <ul class ="round round-3">
+          <li class="spacer">&nbsp;</li>
+          {% for j in winnerList %}
+            {% if j.round == 3 %}
+              <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+              <li class="game game-spacer">&nbsp;</li>
+              <li class="game game-bottom "> {{j.loserPlayer}}</li>
+              <li class="spacer">&nbsp;</li>
+            {% endif %}
+          {% endfor %%}
+          </ul>
+          {%  elif i == 4 %}
+          <ul class ="round round-4">
+          <li class="spacer">&nbsp;</li>
+          {% for j in winnerList %}
+            {% if j.round == 4 %}
+              <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+              <li class="game game-spacer">&nbsp;</li>
+              <li class="game game-bottom "> {{j.loserPlayer}}</li>
+              <li class="spacer">&nbsp;</li>
+            {% endif %}
+          {% endfor %%}
+          </ul>
+          {%  elif i == 5 %}
+          <ul class ="round round-5">
+          <li class="spacer">&nbsp;</li>
+          {% for j in winnerList %}
+            {% if j.round == 5 %}
+              <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+              <li class="game game-spacer">&nbsp;</li>
+              <li class="game game-bottom "> {{j.loserPlayer}}</li>
+              <li class="spacer">&nbsp;</li>
+            {% endif %}
+          {% endfor %%}
+          </ul>
+          {%  elif i == 6 %}
+          <ul class ="round round-6">
+          <li class="spacer">&nbsp;</li>
+          {% for j in winnerList %}
+            {% if j.round == 6 %}
+              {% if j.loserPlayer == "null" %}
+                <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+                <li class="spacer">&nbsp;</li>
+              {% else %}
+                <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+                <li class="game game-spacer">&nbsp;</li>
+                <li class="game game-bottom "> {{j.loserPlayer}}</li>
+                <li class="spacer">&nbsp;</li>
+              {% endif %}
+            {% endif %}
+          {% endfor %%}
+          </ul>
+          {%  elif i == 7 %}
+          <ul class ="round round-7">
+          <li class="spacer">&nbsp;</li>
+          {% for j in winnerList %}
+            {% if j.round == 7 %}
+              <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+              <li class="game game-spacer">&nbsp;</li>
+              <li class="game game-bottom "> {{j.loserPlayer}}</li>
+              <li class="spacer">&nbsp;</li>
+            {% endif %}
+          {% endfor %%}
+          </ul>
+          {%  elif i == 8 %}
+          <ul class ="round round-8">
+          <li class="spacer">&nbsp;</li>
+          {% for j in winnerList %}
+            {% if j.round == 8 %}
+              <li class="game game-top winner"> {{j.winnerPlayer}} </li>
+              <li class="game game-spacer">&nbsp;</li>
+              <li class="game game-bottom "> {{j.loserPlayer}}</li>
+              <li class="spacer">&nbsp;</li>
+            {% endif %}
+          {% endfor %%}
+          </ul>
+          {% endif %}
+        {% endfor %}
+  </main>
+</div>
+</body>
 </html>
